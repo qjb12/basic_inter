@@ -1,1 +1,1 @@
-Basic program that takes a JSON with basic keys and language variations then allows for information to be printed in user selected language. (Run build from {src_dir}/build because it requires sudo password)
+Basic program that takes a JSON with basic keys and language variations then allows for information to be printed in user selected language. Stores logs into text files and manages them (compresses after certain byte size, then deletes compressed ZIPs after certain file limit reached). (Run build from {src_dir}/build because it requires sudo password)
