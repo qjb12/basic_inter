@@ -2,7 +2,9 @@
     "files.associations": {
         "*.s": "plaintext",
         "iostream": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "iosfwd": "cpp",
+        "chrono": "cpp"
     },
     "cmake.generator": "Unix Makefiles"
 }
