@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.s": "plaintext",
+        "iostream": "cpp",
+        "string": "cpp"
+    },
+    "cmake.generator": "Unix Makefiles"
+}

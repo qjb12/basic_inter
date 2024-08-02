@@ -1,0 +1,29 @@
+{
+    "es": {
+        "setlocale": "es_ES.utf8", 
+        "INFO": "INFORMACIÓN",
+        "WARNING": "ADVERTENCIA",
+        "ERROR": "ERROR",
+        "Test information": "Información de prueba",
+        "Warning information": "Información de advertencia",
+        "Error information": "Información de error"
+    },
+    "fr": {
+        "setlocale": "fr_FR.utf8",
+        "INFO": "INFORMATION",
+        "WARNING": "ATTENTION",
+        "ERROR": "ERREUR",
+        "Test information": "Information de test",
+        "Warning information": "Information d'avertissement",
+        "Error information": "Information d'erreur"
+    },
+    "jp": {
+        "setlocale": "ja_JP.utf8",
+        "INFO": "情報",
+        "WARNING": "警告",
+        "ERROR": "エラー",
+        "Test information": "テスト情報",
+        "Warning information": "警告情報",
+        "Error information": "エラー情報"
+    }
+}
