@@ -13,9 +13,11 @@ add_executable(main main.cpp)
 # Include the nlohmann directory for header files
 target_include_directories(main PRIVATE ${CMAKE_SOURCE_DIR}/nlohmann)
 
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/..)
+
 # Set the output directory for the executable
 set_target_properties(main PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}
+    RUNTIME_OUTPUT_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
 )
 
 add_custom_command(TARGET main POST_BUILD
