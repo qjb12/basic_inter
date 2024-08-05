@@ -22,6 +22,6 @@ set_target_properties(main PROPERTIES
 
 add_custom_command(TARGET main POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E echo "Running post-build script..."
-    COMMAND ${CMAKE_COMMAND} -E env bash ${EXECUTABLE_OUTPUT_PATH}/locale_gen.sh
+    COMMAND ${CMAKE_COMMAND} -E env bash ${CMAKE_SOURCE_DIR}/locale_gen.sh
     COMMAND ${CMAKE_COMMAND} -E echo "Post-build script complete."
 )
