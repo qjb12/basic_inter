@@ -27,4 +27,4 @@ RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 # Start the ssh-agent and add the key
 RUN eval "$(ssh-agent -s)" && ssh-add /root/.ssh/id_rsa
 
-RUN git clone git@github.com:qjb12/basic_internationalization.git
+RUN git clone git@github.com:qjb12/basic_inter.git
