@@ -28,3 +28,15 @@ RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 RUN eval "$(ssh-agent -s)" && ssh-add /root/.ssh/id_rsa
 
 RUN git clone git@github.com:qjb12/basic_inter.git
+
+# update for locales 
+ENV MUSL_LOCALE_DEPS cmake make musl-dev gcc gettext-dev libintl
+ENV MUSL_LOCPATH /usr/share/i18n/locales/musl
+
+RUN apk add --no-cache \
+    $MUSL_LOCALE_DEPS \
+    && wget https://gitlab.com/rilian-la-te/musl-locales/-/archive/master/musl-locales-master.zip \
+    && unzip musl-locales-master.zip \
+      && cd musl-locales-master \
+      && cmake -DLOCALE_PROFILE=OFF -D CMAKE_INSTALL_PREFIX:PATH=/usr . && make && make install \
+      && cd .. && rm -r musl-locales-master
