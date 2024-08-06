@@ -15,7 +15,7 @@ RUN mkdir /root/.ssh && \
     chmod 0700 /root/.ssh
 
 # Copy the SSH private key into the container
-COPY /.ssh/id_rsa /root/.ssh
+COPY ~/.ssh/id_rsa /root/.ssh
 COPY ~/.ssh/id_rsa.pub /root/.ssh
 
 # Setup SSH to use the key
