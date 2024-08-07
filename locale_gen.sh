@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cmake -S . -B ./build
+mkdir logs && mkdir logs/archived_logs
 cd build && make
 sudo apt-get update
 sudo apt-get install -y libc-bin
