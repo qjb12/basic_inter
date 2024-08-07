@@ -11,23 +11,29 @@ RUN apk update && apk add --no-cache build-base cmake pkgconf
 RUN apk add --no-cache vim git curl openssh-client
 
 # Create a directory for SSH keys and set permissions
-RUN mkdir /root/.ssh && \
-    chmod 0700 /root/.ssh
+# RUN mkdir /root/.ssh && \
+#    chmod 0700 /root/.ssh
 
 # Copy the SSH private key into the container
-COPY ~/.ssh/id_rsa /root/.ssh
-COPY ~/.ssh/id_rsa.pub /root/.ssh
+# COPY ./.ssh/basint_docker /root/.ssh
+# COPY ./.ssh/basint_docker.pub /root/.ssh
+
+# RUN chmod 600 /root/.ssh/basint_docker
+# RUN chmod 644 /root/.ssh/basint_docker.pub
 
 # Setup SSH to use the key
-RUN echo "Host github.com\n\tAddKeysToAgent yes\n\tIdentityFile /root/.ssh/id_rsa" > /root/.ssh/config
+# RUN echo "Host github.com\n\tAddKeysToAgent yes\n\tIdentityFile /root/.ssh/id_rsa" > /root/.ssh/config
 
 # Add GitHub to known hosts
-RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
+# RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 # Start the ssh-agent and add the key
-RUN eval "$(ssh-agent -s)" && ssh-add /root/.ssh/id_rsa
+# RUN eval "$(ssh-agent -s)" && ssh-add /root/.ssh/basint_docker
 
-RUN git clone git@github.com:qjb12/basic_inter.git
+RUN git clone https://github.com/qjb12/basic_inter.git
+
+RUN cd basic_inter && mkdir logs && mkdir logs/archived_logs
+RUN cd basic_inter && cmake -S . -B ./build && cd build && make
 
 # update for locales 
 ENV MUSL_LOCALE_DEPS cmake make musl-dev gcc gettext-dev libintl

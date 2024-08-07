@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/qjb12/V2/build",
-  "command": "/usr/bin/g++  -I/home/qjb12/V2/nlohmann -g -std=gnu++17 -o CMakeFiles/main.dir/main.cpp.o -c /home/qjb12/V2/main.cpp",
-  "file": "/home/qjb12/V2/main.cpp"
-}
-]
