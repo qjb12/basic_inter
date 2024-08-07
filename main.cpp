@@ -7,6 +7,7 @@
 #include <map>
 #include <string>
 #include <chrono>
+#include <mutex>
 #include "nlohmann/json.hpp"
 
 using namespace std;
@@ -134,6 +135,7 @@ public:
     }
 
     void log(const string& level, const string& message) {
+        lock_guard<mutex> guard(logMutex);
         string filename = getFileName();
         wstring entry = L"[" + resources.at(level) + L"] " + resources.at(message);
         wcout << "log (L), print (P), both (B), or niether (N)?: ";
@@ -157,6 +159,7 @@ public:
 
 private:
     map<string, wstring> resources;
+    mutex logMutex;
 };
 
 int main() {
