@@ -1,5 +1,5 @@
 #!/bin/bash
 
 cd ./build && make clean
-rm -rf ./*
+rm -rf ./* .[!.]*
 cd ../logs && find . -type f -delete
