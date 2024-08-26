@@ -46,4 +46,3 @@ RUN apk add --no-cache \
       && cd musl-locales-master \
       && cmake -DLOCALE_PROFILE=OFF -D CMAKE_INSTALL_PREFIX:PATH=/usr . && make && make install \
       && cd .. && rm -r musl-locales-master
-      

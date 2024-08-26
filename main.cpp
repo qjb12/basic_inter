@@ -83,6 +83,11 @@ public:
             throw runtime_error("Could not create log file");
         }
         file.close();
+        // also add to en_logs
+        ofstream en_file("en_logs/" + filename);
+        if (!en_file.is_open()) {
+            throw runtime_error("Could not create en_log file");
+        } 
         return filename;
     }
 
@@ -102,7 +107,15 @@ public:
         string command = "zip -r " + destinationFile + " " + sourceFile + " && rm " + sourceFile;
         int result = system(command.c_str());
         if (result != 0) {
-            throw runtime_error("Failed to compress log file");
+            throw runtime_error("Failed to compress log file for archived_logs");
+        }
+        
+        string en_sourceFile = "en_logs/" + filename;
+        string en_destinationFile = "en_logs/en_archived_logs/" + filename + ".zip";
+        string en_command = "zip -r " + en_destinationFile + " " + en_sourceFile + " && rm " + en_sourceFile;
+        int en_result = system(en_command.c_str());
+        if (en_result != 0) {
+            throw runtime_error("Failed to compress log file for en_archived_logs");
         }
     }
 
@@ -114,10 +127,10 @@ public:
         file.seekg(0, ios::end);
         size_t size = file.tellg();
         file.close();
-        return size >= 1024;
+        return size >= 100;
     }
 
-    void writeToLog(const wstring& entry, const string& filename) {
+    void writeToLog(const wstring& entry, const wstring& english, const string& filename) {
         wofstream outputFile("logs/" + filename, ios::app);
         if (outputFile.is_open()) {
             auto now = chrono::system_clock::now();
@@ -132,21 +145,37 @@ public:
         } else {
             throw runtime_error("Could not open log file");
         }
+        
+        wofstream en_outputFile("en_logs/" + filename, ios::app);
+        if (en_outputFile.is_open()) {
+            auto now = chrono::system_clock::now();
+            auto now_time_t = chrono::system_clock::to_time_t(now);
+            auto now_tm = *localtime(&now_time_t);
+            auto now_ms = chrono::duration_cast<chrono::milliseconds>(now.time_since_epoch()) % 1000;
+            char timestamp[30];
+            strftime(timestamp, sizeof(timestamp), "[%Y:%m:%d %H:%M:%S.", &now_tm);
+            sprintf(timestamp + strlen(timestamp), "%03ld]", now_ms.count());
+            en_outputFile << english << " " << timestamp << endl;
+            en_outputFile.close();
+        } else {
+            throw runtime_error("Could not open en_log file");
+        }
     }
 
     void log(const string& level, const string& message) {
         lock_guard<mutex> guard(logMutex);
         string filename = getFileName();
         wstring entry = L"[" + resources.at(level) + L"] " + resources.at(message);
+        wstring english = L"[" + convertToWString(level) + L"] " + convertToWString(message);
         wcout << "log (L), print (P), both (B), or niether (N)?: ";
         string choice;
         cin >> choice;
         if (choice == "L" || choice == "l") {
-            writeToLog(entry, filename);
+            writeToLog(entry, english, filename);
         } else if (choice == "P" || choice == "p") {
             wcout << entry << endl;
         } else if (choice == "B" || choice == "b") {
-            writeToLog(entry, filename);
+            writeToLog(entry, english, filename);
             wcout << entry << endl;
         } else {
             wcout << "No action taken" << endl;
@@ -175,6 +204,5 @@ int main() {
     logger.log("INFO", "Test information");
     logger.log("WARNING", "Warning information");
     logger.log("ERROR", "Error information");
-    loadResources(language);
     return 0;
 }

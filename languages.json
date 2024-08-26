@@ -25,5 +25,14 @@
         "Test information": "テスト情報",
         "Warning information": "警告情報",
         "Error information": "エラー情報"
+    },
+    "en": {
+        "setlocale": "en_US.utf8",
+        "INFO": "INFORMATION",
+        "WARNING": "WARNING",
+        "ERROR": "ERROR",
+        "Test information": "Test information",
+        "Warning information": "Warning information",
+        "Error information": "Error information"
     }
 }
