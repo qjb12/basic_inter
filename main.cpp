@@ -51,6 +51,7 @@ public:
 
     void checkCompressedLogs() {
         const std::string archiveDir = "logs/archived_logs";
+        const std::string en_archiveDir = "en_logs/en_archived_logs";
         const int maxFiles = 20;
 
         std::vector<filesystem::path> files;
@@ -67,6 +68,23 @@ public:
 
             for (int i = 0; i < files.size() - maxFiles; ++i) {
                 filesystem::remove(files[i]);
+            }
+        }
+
+        std::vector<filesystem::path> en_files;
+        for (const auto& entry : filesystem::directory_iterator(en_archiveDir)) {
+            if (entry.is_regular_file()) {
+                en_files.push_back(entry.path());
+            }
+        }
+
+        if (en_files.size() > maxFiles) {
+            std::sort(en_files.begin(), en_files.end(), [](const filesystem::path& a, const filesystem::path& b) {
+                return filesystem::last_write_time(a) < filesystem::last_write_time(b);
+            });
+
+            for (int i = 0; i < en_files.size() - maxFiles; ++i) {
+                filesystem::remove(en_files[i]);
             }
         }
     }
